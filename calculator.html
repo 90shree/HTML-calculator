@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pink Calculator</title>
+    <title>Calculator</title>
     <style>
         body {
             display: flex;
@@ -92,7 +92,7 @@
                     const result = eval(expression);
                     expression = String(result);
                 } catch (error) {
-                    expression = 'Error';
+                    expression = 'Error Found!';
                 }
             } else if (value === 'C') {
                 expression = '';
@@ -102,7 +102,7 @@
                     const radians = eval(expression);
                     expression = String(Math[fn](radians));
                 } catch (error) {
-                    expression = 'Error';
+                    expression = 'Error Found!';
                 }
             } else {
                 expression += value;
