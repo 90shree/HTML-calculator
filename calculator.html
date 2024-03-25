@@ -10,14 +10,15 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            margin: 0;
+            background-color: pink;
         }
 
         .calculator {
             background-color: pink;
-            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
         #display {
@@ -25,6 +26,10 @@
             padding: 10px;
             margin-bottom: 10px;
             font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: white;
+            outline: none;
         }
 
         .buttons {
@@ -37,9 +42,10 @@
             padding: 10px;
             font-size: 18px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             background-color: white;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         button:hover {
@@ -55,19 +61,19 @@
             <button>7</button>
             <button>8</button>
             <button>9</button>
-            <button>+</button>
+            <button>/</button>
             <button>4</button>
             <button>5</button>
             <button>6</button>
-            <button>-</button>
+            <button>*</button>
             <button>1</button>
             <button>2</button>
             <button>3</button>
-            <button data-op="*">x</button>
+            <button>-</button>
             <button>0</button>
             <button>.</button>
             <button>=</button>
-            <button>/</button>
+            <button>+</button>
             <button data-fn="sin">sin</button>
             <button data-fn="cos">cos</button>
             <button data-fn="tan">tan</button>
@@ -75,35 +81,34 @@
     </div>
 
     <script>
-        let display = '';
+        let expression = '';
 
         function handleButtonClick(event) {
             const button = event.target;
             const value = button.textContent;
-
+            
             if (value === '=') {
                 try {
-                    display = eval(display);
+                    const result = eval(expression);
+                    expression = String(result);
                 } catch (error) {
-                    display = 'Error';
+                    expression = 'Error';
                 }
             } else if (value === 'C') {
-                display = '';
+                expression = '';
             } else if (button.dataset.fn) {
                 const fn = button.dataset.fn;
                 try {
-                    const radians = eval(display);
-                    display = Math[fn](radians);
+                    const radians = eval(expression);
+                    expression = String(Math[fn](radians));
                 } catch (error) {
-                    display = 'Error';
+                    expression = 'Error';
                 }
-            } else if (button.dataset.op) {
-                display += button.dataset.op;
             } else {
-                display += value;
+                expression += value;
             }
-
-            document.getElementById('display').value = display;
+            
+            document.getElementById('display').value = expression;
         }
     </script>
 </body>
