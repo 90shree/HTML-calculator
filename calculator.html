@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pink Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .calculator {
+            background-color: pink;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #display {
+            width: calc(100% - 10px);
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 5px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons" onclick="handleButtonClick(event)">
+            <button>C</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>+</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>-</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button data-op="*">x</button>
+            <button>0</button>
+            <button>.</button>
+            <button>=</button>
+            <button>/</button>
+            <button data-fn="sin">sin</button>
+            <button data-fn="cos">cos</button>
+            <button data-fn="tan">tan</button>
+        </div>
+    </div>
+
+    <script>
+        let display = '';
+
+        function handleButtonClick(event) {
+            const button = event.target;
+            const value = button.textContent;
+
+            if (value === '=') {
+                try {
+                    display = eval(display);
+                } catch (error) {
+                    display = 'Error';
+                }
+            } else if (value === 'C') {
+                display = '';
+            } else if (button.dataset.fn) {
+                const fn = button.dataset.fn;
+                try {
+                    const radians = eval(display);
+                    display = Math[fn](radians);
+                } catch (error) {
+                    display = 'Error';
+                }
+            } else if (button.dataset.op) {
+                display += button.dataset.op;
+            } else {
+                display += value;
+            }
+
+            document.getElementById('display').value = display;
+        }
+    </script>
+</body>
+</html>
