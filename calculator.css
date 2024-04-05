@@ -57,7 +57,7 @@
     <div class="calculator">
         <input type="text" id="display" readonly>
         <div class="buttons" onclick="handleButtonClick(event)">
-            <button>C</button>
+            <button>Clear</button>
             <button>7</button>
             <button>8</button>
             <button>9</button>
@@ -65,7 +65,7 @@
             <button>4</button>
             <button>5</button>
             <button>6</button>
-            <button>*</button>
+            <button>x</button>
             <button>1</button>
             <button>2</button>
             <button>3</button>
@@ -92,9 +92,9 @@
                     const result = eval(expression);
                     expression = String(result);
                 } catch (error) {
-                    expression = 'Error Found!';
+                    expression = 'Error!';
                 }
-            } else if (value === 'C') {
+            } else if (value === 'Clear') {
                 expression = '';
             } else if (button.dataset.fn) {
                 const fn = button.dataset.fn;
